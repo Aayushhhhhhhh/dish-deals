@@ -1,6 +1,6 @@
 let allDeals = [];
 
-fetch('https://docs.google.com/spreadsheets/d/1Zt4vb39E_D9yZ-bJ8huW-mNM4dy3rL-R-a8i0FE0eqY/gviz/tq?tqx=out:csv')
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS0OU7UPBuTcZb33al8Z7MCuknxEvOz-QY1Zdh3YP_-Quc5jLVLv6vy2Iqg56eJ6J7OW9t1dnU-R72U/pub?output=csv')
   .then(r => r.text())
   .then(text => {
       const rows = text.split('\n').slice(1);
