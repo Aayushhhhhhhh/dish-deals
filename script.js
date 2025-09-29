@@ -24,4 +24,4 @@ function findDeal(){
     : `<h2>Nothing under ₹${budget} right now.</h2>`;
 }
 
-document.getElementById('findBtn').addEventListener('click', findDeal);
+document.getElementById('findBtn').disabled = false;
