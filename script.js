@@ -18,3 +18,4 @@ function findDeal(){
     `<h2>Best deal: ${best.dish} at ${best.restaurant} — ₹${best.total}</h2>` :
     `<h2>Nothing under ₹${budget} right now.</h2>`;
 }
+document.getElementById('findBtn').addEventListener('click', findDeal);
