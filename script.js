@@ -21,7 +21,6 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS0OU7UPBuTcZb33al8Z7MCuk
     };
   }).filter(Boolean); // remove nulls
 });
-});
 
 function findDeal(){
   const budget = Number(document.getElementById('budget').value);
