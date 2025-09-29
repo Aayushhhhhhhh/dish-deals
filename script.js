@@ -3,12 +3,24 @@ let allDeals = [];
 fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS0OU7UPBuTcZb33al8Z7MCuknxEvOz-QY1Zdh3YP_-Quc5jLVLv6vy2Iqg56eJ6J7OW9t1dnU-R72U/pub?output=csv')
   .then(r => r.text())
   .then(text => {
-      const rows = text.split('\n').slice(1);
-      allDeals = rows.map(r => {
-          const [dish,restaurant,price,fee] = r.split(',');
-          return {dish, restaurant, price: Number(price), fee: Number(fee), total: Number(price)+Number(fee)};
-      });
+    const rows = text.trim().split('\n').slice(1)   // remove header
+    .filter(r => r.trim() !== '');   // throw away blank lines
+    
+    allDeals = rows.map(r => {
+      const parts = r.split(',');
+      const price  = Number(parts[2]);
+      const fee    = Number(parts[3]);
+      if (isNaN(price) || isNaN(fee)) return null; // skip bad row
+      return {
+        dish:      parts[0],
+        restaurant:parts[1],
+        price,
+        fee,
+        total: price + fee
+      };
+    }).filter(Boolean); // remove nulls
   });
+});
 
 function findDeal(){
   const budget = Number(document.getElementById('budget').value);
