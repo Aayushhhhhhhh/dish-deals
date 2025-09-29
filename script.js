@@ -1,6 +1,16 @@
 let allDeals = [];
 
-// 1.  load the sheet
+// 1. declare the function first
+function findDeal(){
+  const budget = Number(document.getElementById('budget').value);
+  const ok = allDeals.filter(d => d.total <= budget).sort((a,b) => a.total - b.total);
+  const best = ok[0];
+  document.getElementById('result').innerHTML = best
+    ? `<h2>Best deal: ${best.dish} at ${best.restaurant} — ₹${best.total}</h2>`
+    : `<h2>Nothing under ₹${budget} right now.</h2>`;
+}
+
+// 2. load data and hook the button
 fetch('https://docs.google.com/spreadsheets/d/1Zt4vb39E_D9yZ-bJ8huW-mNM4dy3rL-R-a8i0FE0eqY/gviz/tq?tqx=out:csv')
   .then(r => r.text())
   .then(text => {
@@ -12,18 +22,6 @@ fetch('https://docs.google.com/spreadsheets/d/1Zt4vb39E_D9yZ-bJ8huW-mNM4dy3rL-R-
           if (isNaN(price) || isNaN(fee)) return null;
           return { dish: parts[0], restaurant: parts[1], price, fee, total: price + fee };
       }).filter(Boolean);
-
-      // 2.  data ready → allow clicking
       document.getElementById('load').textContent = 'Ready!';
       document.getElementById('findBtn').addEventListener('click', findDeal);
   });
-
-// 3.  the search function
-function findDeal(){
-  const budget = Number(document.getElementById('budget').value);
-  const ok = allDeals.filter(d => d.total <= budget).sort((a,b) => a.total - b.total);
-  const best = ok[0];
-  document.getElementById('result').innerHTML = best
-    ? `<h2>Best deal: ${best.dish} at ${best.restaurant} — ₹${best.total}</h2>`
-    : `<h2>Nothing under ₹${budget} right now.</h2>`;
-}
