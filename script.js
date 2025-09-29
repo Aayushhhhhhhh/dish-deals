@@ -7,19 +7,20 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS0OU7UPBuTcZb33al8Z7MCuk
     .filter(r => r.trim() !== '');   // throw away blank lines
     
     allDeals = rows.map(r => {
-      const parts = r.split(',');
+      const parts = r.split(',').map(c => c.trim().replace(/^"+|"+$/g, ''));
       const price  = Number(parts[2]);
       const fee    = Number(parts[3]);
-      if (isNaN(price) || isNaN(fee)) return null; // skip bad row
+      if (isNaN(price) || isNaN(fee)) return null;
       return {
-        dish:      parts[0],
-        restaurant:parts[1],
+        dish:       parts[0],
+        restaurant: parts[1],
         price,
         fee,
         total: price + fee
       };
-    }).filter(Boolean); // remove nulls
-  });
+    };
+  }).filter(Boolean); // remove nulls
+});
 });
 
 function findDeal(){
