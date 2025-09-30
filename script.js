@@ -3,7 +3,7 @@ let allDeals = [];
 // 1. declare the function first
 function findDeal(){
   const budget = Number(document.getElementById('budget').value);
-  const ok = allDeals.filter(d => d.total <= budget).sort((a,b) => a.total - b.total);
+  const ok = allDeals.filter(d => d.total <= budget).sort((a,b) => b.total - a.total);
   const best = ok[0];
   document.getElementById('result').innerHTML = best
     ? `<h2>Best deal: ${best.dish} at ${best.restaurant} — ₹${best.total}</h2>`
